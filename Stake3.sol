@@ -21,7 +21,7 @@ contract BurnToStake {
         uint beforeComma;  // 123xyz,0000
         uint afterComma;  //0,xyze123456
         uint base;   //10
-        uint expo;  //**        eg: 2.3 x 10 ** 3 = 2300
+        int expo;  //**        eg: 2.3 x 10 ** 3 = 2300
         uint amount;
     }
     
@@ -143,7 +143,7 @@ contract BurnToStake {
         activeNumberes.adres = _adres;
         activeNumberes.beforeComma =getBeforeComma(_val);            //bezig hier
         activeNumberes.afterComma = getAfterComma(_val);
-        activeNumberes.expo = getExponential(_val);
+        activeNumberes.expo = int(getExponential(_val));
         activeNumberes.base = 10;
         activeNumberes.amount = _val;
         activeNumberes.ticketNr = NrOfBigNumber;
@@ -172,10 +172,10 @@ contract BurnToStake {
     
     
     
-    function readStakerAgain (address adres) public view returns (uint, uint, uint, uint) {
+    function readStakerAgain (address adres) public view returns (uint, uint, uint, int) {
      uint number = stakers[adres].burned.beforeComma;
      uint decimals = stakers[adres].burned.afterComma;
-     uint expo =  stakers[adres].burned.expo;
+     int expo =  stakers[adres].burned.expo;
      
      return ((FromScienticNotation(number, decimals, expo)), number, decimals, expo);
      
@@ -184,12 +184,12 @@ contract BurnToStake {
         
     }
     
-    function FromScienticNotation (uint _beforeComma, uint _afterComma, uint _expo) public view returns (uint) {
-         uint originalDigits= _expo;
-         uint numberOfDigitsa = _expo;
+    function FromScienticNotation (uint _beforeComma, uint _afterComma, int _expo) public view returns (uint) {
+         uint originalDigits= uint(_expo);
+         uint numberOfDigitsa = uint(_expo);
        
-        uint beforeComma = _beforeComma;
-        uint afterComma =  _afterComma;
+        uint beforeComma = uint(_beforeComma);
+        uint afterComma =  uint(_afterComma);
     
         uint result = (beforeComma*10**(numberOfDigitsa-1));  //waarschijnlijk niet -1 door gebruik expo
         
@@ -227,7 +227,7 @@ contract BurnToStake {
         activeNumberes.adres = _adres;
         activeNumberes.beforeComma =getBeforeComma(_val);            //bezig hier
         activeNumberes.afterComma = getAfterComma(_val);
-        activeNumberes.expo = getExponential(_val);
+        activeNumberes.expo = int(getExponential(_val));
         activeNumberes.base = 10;
         activeNumberes.amount = _val;
         activeNumberes.ticketNr = NrOfBigNumber;
@@ -328,7 +328,7 @@ contract BurnToStake {
      uint formNum = stakers[adres].balNrTicket;
      uint amount = bigNumbers[formNum].amount;
      
-    return amount/10**18;
+    return amount;//10**18;
  }
  function getStakers() view public returns (address[] memory) {
      return stakerAccounts;
@@ -342,12 +342,12 @@ contract BurnToStake {
         
         uint abeforeComma = newbignumbera.beforeComma;
         uint aAfterComma = newbignumbera.afterComma;
-        uint aExpo = newbignumbera.expo;
+        int aExpo = newbignumbera.expo;
         uint aAmount = newbignumbera.amount;
         //ticketnrb
         uint bBeforeComma = newbignumberb.beforeComma;
         uint bAfterComma = newbignumberb.afterComma;
-        uint bExpo = newbignumberb.expo;
+        int bExpo = newbignumberb.expo;
         uint bamount = newbignumberb.amount;
         
         uint result1 = aAmount.add(bamount);
@@ -364,12 +364,12 @@ contract BurnToStake {
         
         uint abeforeComma = newbignumbera.beforeComma;
         uint aAfterComma = newbignumbera.afterComma;
-        uint aExpo = newbignumbera.expo;
+        int aExpo = newbignumbera.expo;
         uint aAmount = newbignumbera.amount;
         //ticketnrb
         uint bBeforeComma = newbignumberb.beforeComma;
         uint bAfterComma = newbignumberb.afterComma;
-        uint bExpo = newbignumberb.expo;
+        int bExpo = newbignumberb.expo;
         uint bamount = newbignumberb.amount; //as check
         
         uint result1 = aAmount.add(bamount);
