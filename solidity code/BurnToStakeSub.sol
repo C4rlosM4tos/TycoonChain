@@ -1,6 +1,3 @@
-
-
-
 pragma solidity >=0.4.22 <0.6.0;
 
 import "browser/SafeMath.sol";
@@ -27,6 +24,7 @@ contract BurnToStakeSub {
     
     address[] subContracts;
     mapping(address  => uint) burnedBalance;
+ 
     
     using FixidityLib for int256;
     using SafeMath for uint256;
@@ -44,6 +42,8 @@ constructor () public payable {
 
 function () external payable {
     
+    
+    
 }
 
     
@@ -52,13 +52,13 @@ function () external payable {
 
 function burn () external payable returns (uint) {
     
-    if(burnedBalance[msg.sender] == 0) {
-        allSubcontracts.push(msg.sender);
+    if(burnedBalance[tx.origin] == 0) {
+        allSubcontracts.push(tx.origin);
         amountOfStakersInContract++;
     }
     uint val = msg.value;
     totalBurned += val;
-    burnedBalance[msg.sender] += val;
+    burnedBalance[tx.origin] += val;
     
     
   //  BurnToStakeMaster master = BurnToStakeMaster(parent);
@@ -127,7 +127,7 @@ function payout () public payable  {
     
     for(uint i=0; i <amountOfStakersInContract; i++){
         address payable tempAccount =  allSubcontracts[i];
-        ToBePaid = (((burnedBalance[tempAccount].mul(rewardPool)).mul(1000000000000000000)).div(totalBurned))/1000000000000000000;
+        ToBePaid = ((burnedBalance[tempAccount].mul(rewardPool)).div(totalBurned));
         
         
       //  uint ratio = uint(stakeRatioOfContract (tempAccount));
@@ -140,6 +140,7 @@ function payout () public payable  {
     
     blockNumberAtLastPayout = block.number;
     //trigger master payout?
+    
     
     
 }
@@ -157,6 +158,7 @@ function getAddress () public view returns (address payable) {
 function getMaster () public view returns (address) {
     return parent;
 }
+
 
 }
 

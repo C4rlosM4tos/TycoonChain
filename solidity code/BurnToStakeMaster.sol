@@ -1,7 +1,3 @@
-
-
-
-    
 pragma solidity >=0.4.22 <0.6.0;
 
 import "browser/SafeMath.sol";
@@ -181,6 +177,10 @@ function getMaster (address payable _address) public view returns (address) {
 
 function getBrunedBySub (address subcontract) public view returns (uint) {
     return burnedBalance[subcontract];
+}
+function payoutSub (address payable subcontract) public payable {
+    BurnToStakeSub activeSub = BurnToStakeSub(subcontract);
+    activeSub.payout();
 }
 }
 
