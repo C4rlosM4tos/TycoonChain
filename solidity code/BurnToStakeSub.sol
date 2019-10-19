@@ -51,7 +51,7 @@ function () external payable {
 
 
 function burn () external payable returns (uint) {
-    
+    require(msg.value >= 51 wei);
     if(burnedBalance[tx.origin] == 0) {
         allSubcontracts.push(tx.origin);
         amountOfStakersInContract++;
@@ -125,16 +125,23 @@ function payout () public payable  {
     //  int rewardInInt = int(rewardPool);
     
     
-    for(uint i=0; i <amountOfStakersInContract; i++){
-        address payable tempAccount =  allSubcontracts[i];
-        ToBePaid = ((burnedBalance[tempAccount].mul(rewardPool)).div(totalBurned));
+ 
         
+        for(uint i=0; i <amountOfStakersInContract; i++){
+        address payable tempAccount = allSubcontracts[i];
+        ToBePaid = (((burnedBalance[tempAccount])*1000000000000000000).mul(rewardPool)).div(totalBurned);
+        
+        
+       if(ToBePaid > 10*18){
+            tempAccount.transfer(ToBePaid/1000000000000000000);
+            
+        }
         
       //  uint ratio = uint(stakeRatioOfContract (tempAccount));
       //  ToBePaid = (rewardPool * ((ratio/10**25)));
-        tempAccount.transfer(ToBePaid);
-        paymentId++;
-        payments[paymentId] = ToBePaid;
+    //    tempAccount.transfer(ToBePaid);
+      //  paymentId++;
+    //    payments[paymentId] = ToBePaid;
         
     }
     
