@@ -1,12 +1,15 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-import "browser/SafeMath.sol";
-import "browser/FixidityLib.sol";
-import "browser/BurnToStakeSub.sol";
+import "./SafeMath.sol";
+import "./FixidityLib.sol";
+import "./BurnToStakeSub.sol";
 
 
 
 contract BurnToStakeMaster {
+    
+    uint previousFaucet;
+    
     BurnToStakeSub sub;
     uint  ToBePaid;
     uint  blockNumberAtLastPayout;
@@ -14,6 +17,7 @@ contract BurnToStakeMaster {
     uint  reward = 1 ether;
     uint  amountOfStakersInContract;
     uint  paymentId;
+    bool faucetIsHot;
     
     mapping(uint => uint) payments; //payment id to amount paid in wei;
     
@@ -31,9 +35,15 @@ contract BurnToStakeMaster {
     
     
 constructor () public payable {
-    blockNumberAtLastPayout = block.number;
+  //  blockNumberAtLastPayout = block.number;
+  //  previousFaucet = block.number;
   
     
+}
+
+function fund () public payable {
+    
+   
 }
 
 function() external payable {
@@ -136,11 +146,14 @@ function payout () public payable  {
 
 function CreateNewSubContract ()public payable returns (address) {
     
+    
+    
       BurnToStakeSub child = new BurnToStakeSub();
       address payable childAddress = child.getAddress();
    // LogChildCreated(child); // emit an event - another way to monitor this
     subContracts.push(childAddress); // you can use the getter to fetch child addresses
     subContractsBool[childAddress] = true;
+    childAddress.transfer(msg.value);
     return childAddress;
     
 }
@@ -185,5 +198,25 @@ function payoutSub (address payable subcontract) public payable {
     BurnToStakeSub activeSub = BurnToStakeSub(subcontract);
     activeSub.payout();
 }
+
+function giveCoins (address payable _address) public {  //what if 2 users click during the same block? 
+    uint gap = block.number.sub(previousFaucet);
+    require(gap > 100); 
+       
+        
+       
+        _address.transfer(1000000000000000);
+        previousFaucet = block.number;
+ 
+    }
+    
+function sendMoney (address payable receiver) public payable {
+    
+    receiver.transfer(msg.value);
 }
+    
+    
+    
+}
+
 

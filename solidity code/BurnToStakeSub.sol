@@ -1,8 +1,8 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-import "browser/SafeMath.sol";
-import "browser/FixidityLib.sol";
-import "browser/BurnToStakeMaster.sol";
+import "./SafeMath.sol";
+import "./FixidityLib.sol";
+import "./BurnToStakeMaster.sol";
 
 
 
