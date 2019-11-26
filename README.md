@@ -80,7 +80,7 @@ note that many files start with Poly. the project had a name change from PonziPo
 
 
 
-
+There is limited to no access controll yet (i don't want to pain myself while testing and changing)
 
 
 
