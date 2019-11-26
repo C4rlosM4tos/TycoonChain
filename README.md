@@ -82,6 +82,16 @@ note that many files start with Poly. the project had a name change from PonziPo
 
 There is limited to no access controll yet (i don't want to pain myself while testing and changing)
 
+-------------------------------------------------------------------------------------------------------------------------
+Installation:
 
+You can copy paste the code in remix ide and play with it a little...
+first you need the PolyRegister,
+then you launch the modified ERC1820 registry with the polyregister address
+From there it should not matter wich one you deploy first as the registers will fill in the needs of the contracts (the address of all the other contracts)
 
+Warning: you need to add gas! the tychain blockchain will have high limit of max gas, more than the remix VM. the VM will also crash a lot or just freeze.
+i run ganache-cli blockchain most of the times if i want to test the whole system. the VM is fine for just a few contracts. Best results with own node, but no use burning hashes...
+
+I don't like creating websites... The idea is to have fully decentralized games so anyone could use their own front-end... 
 
