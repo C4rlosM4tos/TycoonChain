@@ -3,62 +3,82 @@
 WORK IN PROGRESS... DO NOT USE ANY OF THE CODE YET! very unSafu!
 ----------------------------------------------------------------
 
+Working on Moonoply before GoldCrush.
+
+Moonopoly will be some monopoly-like game on the blockchain. The game will never end.
+The bank will mint Moonopoly tokens and give them to the players as they pass "start".
+
+a street will not be ownable, but instead it will have a Mayor.
+each street will contain many buildingplots for houses. The Mayor can change depending on the plots owned in a street.
+a new plot will be minted when a player visits a street. That piece of ground will then go into auction.
+
+players can only bid on plots they are standing on.
+Houses can be build when you have the Mayors role. 
+All revenue must be shared with the Mayor, Governor and President. 
+
+Stations cannot be owned, because they are used to transfer to other boards and progress to higher tiers;
+
+...
+
+
+
+All Moonopoly tokens will be backed by the stake reward received by the game.
+
+gameObjects will be auctioned and the funds will be burned in the BurnToStake ecosystem. 
+
+The token and coin might be worthless, but as long as people are mining the chain players will be able to earn 
+back the gass from the transactions and more.
+
+This blockchain project does not claim to be the next bitcoin! instead we claim to be Peer-To-Peer virtual monopoly money, used for all sorts of different tycoongames. we hope to have a low-value to keep the entry low for new players.
+
+IMPORTANT:
+i am not a programmer or anything, i promising nothing and all the code might be very insecure!
+
+
+
+RoadMap:
+
+i hope to finish a first version that will be running on a website with metamask and local node.
+This will be some sort of proof of concept, very basic and limited to no-art. (always welcome to help me...)
+
+If that goes well, i will focus on creating a front-end for the game in unity. I have no idea how yet, but it should be possible 
+
+I will probably not have the skills for that, so chances are that i will focus again on finishing a v0.01 of GoldCrush.
+
+To be fair, don't wait for the game... I do this in my own time and will likely run out of money or time before i get anywhere...
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+What you can find in the smart contracts so far:
+
+ERC1820Registry:
+limited implementation of ERC1820Registry for remix website. (see all "browser/...")
+
+The address is a pain, so i created a registry for my game contracts and the ERC1820 registry. i simply deploy it and let my own register forward the address of the ERC1820Registry to all the contracts that use it.
+
+
+ERC777Token:
+not fully implemented yet, just to a point where it is usable for testing and playing around...
+The token contract is launched by the PolyLauncher contract. lots of EIP170 problems there...
+i use the launcher to set the default operators (eg: exchange)
+you can probably still send tokens to unsupported contracts
+
+ERC721Tokens:
+The plots and houses are ERC721 tokens. They cannot be send to a contract that does not support them when using SafeTransferFrom
+Only the plots contract has ERC721 fully working. (or at least working)
+
+
+i'm mainly posting this as backup for myself, and i silently hope to find other people to help a bit...
 
 
 
 
 
 
+note that many files start with Poly. the project had a name change from PonziPoly to Moonopoly but the old code is not updated yet. I also have lots of files that are undergoing conversion to the new 1820 registry, i did not had that in the beginning...
 
 
-
-TycoonChain
-Peer to peer Monopoly money
-
-Digital cash used in a virtual environment 
-
-Introduction
-Why the need?
-In our current situation we play monopoly at our home, we get rich and stop playing. We cannot join the game that the neighbor is hosting next door.
-Many tycoon-style business games have the same problem. We play single-player, get rich and stop the game.
-Thanks to blockchain technology we can solve this problem. 
-TycoonChain uses smart contracts and locked-ups of pre-mined coins to create an ecosystem for tycoon-styled games. All those games have 1 big need, and that is currency coming out of thin air to reward the player for doing something. 
-This is where the smart-contract ecosystems comes into play. 
-All the pre-mined coins go into a staking contract. Every x-blocks a fixed reward should be shared between all holders of a stake. A stake is received by sending funds to the contract. Those funds are added to the contract, and in return they get a %-stake of all the future rewards to come. Those funds are a donation to the contract and cannot be withdrawn.
-Technical
-Under the hood the blockchain itself is just a version of Ethereum with an other genesis file basically. This coin itself is not having an ico or foundation, and comes with no promises. Having its own source-code would be the dream, but it would also require all 3th parties to also build their own products for it. Using Ethereum source-code allows using meta-mask and other services, its a matter of pointing those tool towards an other network. You could say that TycoonChain is just an other Ethereum testnet.
-Why a new coin?
-People have to be able to earn the coins in the games, and use them for transacting with the games. This means that they need to be able to earn the same currency as is required for the transactions fees. As a result I need to start a new blockchain, because miners on the main net will not accept tokens as payment for the gas (transaction fees)
-The ecosystem 
-
-The staking contract is the heart of the ecosystem.
-Its created so games can sell objects for coins, and send those coins to the staking contract.  In return the game-contract gets a stake-reward, resulting in new coins for eternity*
-Each gamecontract on this blockchain should have no owner. The coins belong to the game and its players. 
-Example:
-Lets assume we have a goldCrush game. Players just looking for gold in the ground with bulldozers and washplants. (browser based)
-When players find gold-ore, they can melt it to gold-bars and sell them to the game-contract.
-The game-contract can always buy gold, as it will receive coins for staking.
-However, there is some natural selection. Unpopular games will get diluted fast, as other games burn more and more tokens for a bigger share. As a game-creator you have to find a balance in how much you let the game burn, and what you keep for yourself. Players will know this by reading the code. Greedy games will have it hard to get popular on this chain. 
-Example:  
-In the goldCrush example the coins paid for the bulldozer could flow to the staking-contract (or future funds for the game), but the fee paid for melting gold-ore to gold-bars could flow back to the creator of the game. Or maybe I keep the coins paid for the claims… 
-There is also the option to just keep the funds in the game-contract without a stake, but then why use this blockchain in the first place?
-
-The games are not around winning or losing, but about becoming the biggest tycoon. In reality players just battle the inflation and each other as they try to earn more than the inflation. Buying more claims and more bulldozers results in more and faster gold. Basically players try to drain the game-contract using game-objects, resulting in an infinite loop.  // warning, do not play the games if you’re easily addicted to things.
-Not all games have to be never ending, but it is possible.
-
-This ecosystem is not made for hodlers, but for active participants.  The inflation is backed by the ecosystems in the games, just like ponzi fiat is backed by the economy. The players have to keep growing or hyperinflation will settle in. Welcome in my virtual economy simulator, the entire ecosystem is one big game made out of smaller games. 
-If Tycoin ever gets value in fiat then it just proves that fiat is monopoly money too. 
-
-
-
-
-
-
-
-Special thanks to:
-
-- Satoshi Nakamoto for the bitcoin whitepaper   =>	https://bitcoin.org/bitcoin.pdf
-- Vitalik Buterin for the Ethereum project => https://github.com/ethereum/wiki/wiki/White-Paper
 
 
 
