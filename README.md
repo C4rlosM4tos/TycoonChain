@@ -88,7 +88,8 @@ Installation:
 You can copy paste the code in remix ide and play with it a little...
 first you need the PolyRegister,
 then you launch the modified ERC1820 registry with the polyregister address
-From there it should not matter wich one you deploy first as the registers will fill in the needs of the contracts (the address of all the other contracts)
+From there it should not matter wich one you deploy first as the registers will fill in the needs of the contracts (the address of all the other contracts). Since the ERC1820 registry is not running on the address it should we need to pass the polyRegister to all other contracts. they will find the ERC1820's address in the PolyRegister.
+
 
 Warning: you need to add gas! the tychain blockchain will have high limit of max gas, more than the remix VM. the VM will also crash a lot or just freeze.
 i run ganache-cli blockchain most of the times if i want to test the whole system. the VM is fine for just a few contracts. Best results with own node, but no use burning hashes...
